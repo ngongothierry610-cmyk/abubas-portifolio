@@ -6,7 +6,7 @@ export default function Projects() {
     <section className="projects-section" id="projects">
       <h2>Featured Projects</h2>
       <div className="projects-grid">
-        {projects.map((project) => (
+        {projects.filter(p => p.featured).map((project) => (
           <div key={project.id} className="project-card">
             <img src={project.image} alt={project.title} />
             <div className="project-info">

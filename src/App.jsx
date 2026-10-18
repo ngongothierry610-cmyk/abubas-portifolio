@@ -17,8 +17,9 @@ export default function App() {
           element={
             <>
               <Hero />
-              <Projects />
               <AboutPage />
+              <Projects />
+              
             </>
           } 
         />

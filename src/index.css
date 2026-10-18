@@ -276,3 +276,37 @@ button {
 .portfolio-page-container input::placeholder {
   color: #666666;
 }
+
+.about-section {
+  padding: 6rem 5%;
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.about-section h2 {
+  font-size: 2.25rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  position: relative;
+  display: inline-block;
+}
+.about-section h2::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40px;
+  height: 3px;
+  background-color: #e50914;
+}
+
+.about-section p {
+  font-size: 1.25rem;
+  color: #b0b0b0;
+  line-height: 1.8;
+  max-width: 700px;
+  margin: 0 auto;
+}
