@@ -5,6 +5,9 @@ import Hero from "./components/Hero";
 import Projects from "./components/Projects";
 import PortfolioPage from "./pages/PortfolioPage";
 import AboutPage from "./components/About";
+import Servicespage from "./components/Services";
+import endpage from "./components/endpage";
+import Endpage from "./components/endpage";
 
 export default function App() {
   return (
@@ -19,6 +22,7 @@ export default function App() {
               <Hero />
               <AboutPage />
               <Projects />
+              <Servicespage />
               
             </>
           } 
@@ -28,6 +32,7 @@ export default function App() {
           element={<PortfolioPage />} 
         />
       </Routes>
+      <Endpage />
     </div>
   );
 }
