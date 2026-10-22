@@ -4,14 +4,6 @@ import { supabase } from "../supabaseClient";
 import { getThumb } from "../useProjects";
 import { CATEGORIES } from "../categories";
 
-const CATEGORIES = [
-  "Music Video",
-  "Event Coverage",
-  "Tourism / Commercial",
-  "Documentary",
-  "Other",
-];
-
 // Accepts a full YouTube link or just the 11-character ID
 function extractYoutubeId(input) {
   const s = input.trim();

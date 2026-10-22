@@ -51,7 +51,7 @@ button {
 }
 
 .navbar .logo h2 span {
-  color: #e50914; /* Accent Red/Orange highlight */
+  color: #e50914;
 }
 
 .nav-links {
@@ -71,9 +71,11 @@ button {
 }
 
 /* ==========================================================================
-   3. HERO SECTION
+   3. HERO SECTION + SLIDESHOW
    ========================================================================== */
 .hero-section {
+  position: relative;
+  overflow: hidden;
   min-height: 85vh;
   display: flex;
   align-items: center;
@@ -85,6 +87,8 @@ button {
 }
 
 .hero-content {
+  position: relative;
+  z-index: 2;
   max-width: 800px;
 }
 
@@ -102,13 +106,6 @@ button {
   margin-bottom: 2.5rem;
 }
 
-.hero-buttons {
-  display: flex;
-  gap: 1rem;
-  justify-content: center;
-}
-
-/* Base button styles applied to Hero buttons */
 .hero-content button {
   padding: 0.85rem 2rem;
   font-size: 1rem;
@@ -138,11 +135,6 @@ button {
   border-color: #ffffff;
   background-color: rgba(255, 255, 255, 0.05);
   transform: translateY(-2px);
-}
-/* ===== HERO SLIDESHOW ===== */
-.hero-section {
-  position: relative;
-  overflow: hidden;
 }
 
 .hero-slides,
@@ -175,11 +167,6 @@ button {
   );
 }
 
-.hero-content {
-  position: relative;
-  z-index: 2;
-}
-
 .hero-dots {
   position: absolute;
   bottom: 1.75rem;
@@ -206,7 +193,7 @@ button {
 }
 
 /* ==========================================================================
-   4. PROJECTS / PORTFOLIO SECTION
+   4. PROJECTS SECTION
    ========================================================================== */
 .projects-section {
   padding: 5rem 5%;
@@ -239,6 +226,7 @@ button {
 }
 
 .project-card {
+  cursor: pointer;
   background-color: #161616;
   border-radius: 8px;
   overflow: hidden;
@@ -282,6 +270,7 @@ button {
   font-weight: 600;
   color: #ffffff;
 }
+
 .view-all-wrap {
   text-align: center;
   margin-top: 3rem;
@@ -303,22 +292,8 @@ button {
 }
 
 /* ==========================================================================
-   5. RESPONSIVE DESIGN (MOBILE ADAPTATIONS)
+   5. PORTFOLIO PAGE
    ========================================================================== */
-@media (max-width: 768px) {
-  .hero-content h1 {
-    font-size: 2.25rem;
-  }
-
-  .nav-links {
-    gap: 1rem;
-  }
-
-  .projects-grid {
-    grid-template-columns: 1fr;
-  }
-}
-/* Page Header / Wrapper */
 .portfolio-page-container {
   padding: 4rem 5%;
   max-width: 1300px;
@@ -338,7 +313,6 @@ button {
   font-size: 1.05rem;
 }
 
-/* Search Input Styling */
 .portfolio-page-container input[type="text"] {
   width: 100%;
   max-width: 400px;
@@ -361,6 +335,64 @@ button {
   color: #666666;
 }
 
+.portfolio-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.portfolio-toolbar input[type="text"] {
+  margin-bottom: 0;
+  flex: 1;
+  min-width: 220px;
+}
+
+.portfolio-toolbar select {
+  padding: 0.85rem 1rem;
+  background: #161616;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+  color: #fff;
+  font-size: 0.95rem;
+  outline: none;
+}
+
+.portfolio-toolbar select:focus {
+  border-color: #e50914;
+}
+
+.category-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-bottom: 2.5rem;
+}
+
+.category-tabs button {
+  padding: 0.55rem 1.1rem;
+  background: transparent;
+  color: #a0a0a0;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 999px;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+}
+
+.category-tabs button:hover {
+  color: #fff;
+  border-color: #fff;
+}
+
+.category-tabs button.active {
+  background: #e50914;
+  border-color: #e50914;
+  color: #fff;
+}
+
+/* ==========================================================================
+   6. ABOUT SECTION
+   ========================================================================== */
 .about-section {
   padding: 6rem 5%;
   max-width: 900px;
@@ -376,6 +408,7 @@ button {
   position: relative;
   display: inline-block;
 }
+
 .about-section h2::after {
   content: '';
   position: absolute;
@@ -394,8 +427,9 @@ button {
   max-width: 700px;
   margin: 0 auto;
 }
+
 /* ==========================================================================
-   SERVICES SECTION
+   7. SERVICES SECTION
    ========================================================================== */
 .service-section {
   padding: 6rem 5%;
@@ -421,14 +455,12 @@ button {
   background-color: #e50914;
 }
 
-/* Service Grid Layout */
 .service-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 2rem;
 }
 
-/* Service Cards (Formal Structure + Casual Interactive Polish) */
 .service-card {
   background: #141414;
   border: 1px solid rgba(255, 255, 255, 0.08);
@@ -479,14 +511,9 @@ button {
   flex-grow: 1;
 }
 
-/* Mobile responsive tweak */
-@media (max-width: 768px) {
-  .service-grid {
-    grid-template-columns: 1fr;
-  }
-}
-
-/* Container section */
+/* ==========================================================================
+   8. FOOTER (ENDPAGE)
+   ========================================================================== */
 .endpage-section {
   background-color: #080808;
   border-top: 1px solid rgba(255, 255, 255, 0.08);
@@ -495,7 +522,6 @@ button {
   margin: 0 auto;
 }
 
-/* Header spanning top */
 .endpage-header {
   margin-bottom: 3rem;
   padding-bottom: 2rem;
@@ -516,7 +542,6 @@ button {
   max-width: 600px;
 }
 
-/* 3-Column Grid */
 .endpage-columns {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -530,15 +555,13 @@ button {
   margin-bottom: 1.25rem;
 }
 
-/* Flexbox list replacement */
 .col-links {
   display: flex;
   flex-direction: column;
-  gap: 0.75rem; /* Automatically spaces items without list styling */
+  gap: 0.75rem;
 }
 
 .col-links span,
-.col-links p,
 .col-links a {
   color: #aaaaaa;
   font-size: 0.95rem;
@@ -550,25 +573,9 @@ button {
   color: #ffffff;
 }
 
-/* Responsive breakpoint */
-@media (max-width: 768px) {
-  .endpage-columns {
-    grid-template-columns: 1fr;
-    gap: 2.5rem;
-  }
-}
-
-.project-card { cursor: pointer; }
-
-.video-container video {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: #000;
-}
-/* ===== VIDEO MODAL: covers the whole screen ===== */
+/* ==========================================================================
+   9. VIDEO MODAL (covers the whole screen)
+   ========================================================================== */
 .modal-overlay {
   position: fixed;
   inset: 0;
@@ -628,9 +635,9 @@ button {
   background: #000;
 }
 
-.project-card { cursor: pointer; }
-
-/* ===== LOGIN ===== */
+/* ==========================================================================
+   10. LOGIN
+   ========================================================================== */
 .login-page {
   min-height: 100vh;
   display: flex;
@@ -658,7 +665,9 @@ button {
   margin-bottom: 0.4rem;
 }
 
-.login-card h2 span { color: #e50914; }
+.login-card h2 span {
+  color: #e50914;
+}
 
 .login-sub {
   color: #999;
@@ -690,7 +699,9 @@ button {
   transition: border-color 0.3s ease;
 }
 
-.login-form input:focus { border-color: #e50914; }
+.login-form input:focus {
+  border-color: #e50914;
+}
 
 .login-form button {
   margin-top: 1.5rem;
@@ -708,21 +719,31 @@ button {
   transform: translateY(-2px);
 }
 
+.login-form button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
 .login-error {
   color: #ff5252;
   font-size: 0.875rem;
   margin-top: 0.5rem;
 }
 
-.login-form button:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-}
-
+/* ==========================================================================
+   11. ADMIN DASHBOARD
+   ========================================================================== */
 .admin-page {
   padding: 3rem 5%;
   max-width: 1300px;
   margin: 0 auto;
+}
+
+.admin-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
 }
 
 .logout-btn {
@@ -736,14 +757,6 @@ button {
 .logout-btn:hover {
   border-color: #e50914;
   color: #e50914;
-}
-
-/* ===== ADMIN DASHBOARD ===== */
-.admin-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 2rem;
 }
 
 .admin-heading {
@@ -786,8 +799,14 @@ button {
   border-radius: 6px;
 }
 
-.admin-form > button:hover { background: #b80710; }
-.admin-form > button:disabled { opacity: 0.6; cursor: not-allowed; }
+.admin-form > button:hover {
+  background: #b80710;
+}
+
+.admin-form > button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
 
 .admin-check {
   display: flex;
@@ -850,60 +869,176 @@ button {
   color: #fff;
 }
 
+/* ==========================================================================
+   12. RESPONSIVE (all media queries together)
+   ========================================================================== */
+@media (max-width: 768px) {
+  .hero-content h1 {
+    font-size: 2.25rem;
+  }
+
+  .nav-links {
+    gap: 1rem;
+  }
+
+  .projects-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .service-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .endpage-columns {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+}
+
 @media (max-width: 600px) {
-  .admin-row { flex-wrap: wrap; }
+  .admin-row {
+    flex-wrap: wrap;
+  }
 }
 
-/* ===== PORTFOLIO TOOLBAR + CATEGORY TABS ===== */
-.portfolio-toolbar {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-  margin-bottom: 1.5rem;
+/* ===== ABOUT US PAGE ===== */
+.about-page {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 0 5%;
 }
 
-.portfolio-toolbar input[type="text"] {
-  margin-bottom: 0;
-  flex: 1;
-  min-width: 220px;
+.about-hero {
+  text-align: center;
+  padding: 6rem 0 4rem;
 }
 
-.portfolio-toolbar select {
-  padding: 0.85rem 1rem;
-  background: #161616;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 6px;
-  color: #fff;
-  font-size: 0.95rem;
-  outline: none;
+.about-hero h1 {
+  font-size: 3rem;
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -1px;
+  max-width: 900px;
+  margin: 0 auto 1.25rem;
 }
 
-.portfolio-toolbar select:focus { border-color: #e50914; }
+.about-hero h1 span { color: #e50914; }
 
-.category-tabs {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.6rem;
-  margin-bottom: 2.5rem;
+.about-tagline {
+  font-size: 1.2rem;
+  color: #aaaaaa;
 }
 
-.category-tabs button {
-  padding: 0.55rem 1.1rem;
-  background: transparent;
+.about-block {
+  padding: 3.5rem 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.about-block h2,
+.about-cta h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 1.75rem;
+  position: relative;
+  display: inline-block;
+}
+
+.about-block h2::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 0;
+  width: 40px;
+  height: 3px;
+  background-color: #e50914;
+}
+
+.about-block > p {
+  color: #b0b0b0;
+  font-size: 1.1rem;
+  line-height: 1.8;
+  max-width: 800px;
+  margin-bottom: 1rem;
+}
+
+.about-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.about-card {
+  background: #141414;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 2rem 1.75rem;
+  transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.about-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(229, 9, 20, 0.4);
+}
+
+.about-card h3 {
+  font-size: 1.2rem;
+  margin-bottom: 0.75rem;
+}
+
+.about-card p {
   color: #a0a0a0;
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  border-radius: 999px;
-  font-size: 0.9rem;
-  transition: all 0.3s ease;
+  font-size: 0.95rem;
+  line-height: 1.65;
 }
 
-.category-tabs button:hover {
-  color: #fff;
-  border-color: #fff;
+.about-services {
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  overflow: hidden;
 }
 
-.category-tabs button.active {
-  background: #e50914;
-  border-color: #e50914;
-  color: #fff;
+.about-service-row {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 1.5rem;
+  padding: 1.25rem 1.5rem;
+  background: #141414;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.about-service-row:first-child { border-top: none; }
+
+.about-service-row span { color: #a0a0a0; }
+
+.about-service-head {
+  background: #1c1c1c;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #e50914;
+}
+
+.about-service-head span { color: #e50914; }
+
+.about-cta {
+  text-align: center;
+  padding: 4rem 1.5rem;
+  margin: 2rem 0 5rem;
+  background: radial-gradient(circle at center, #1a1a1a 0%, #0d0d0d 100%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+}
+
+.about-cta p {
+  color: #aaaaaa;
+  max-width: 650px;
+  margin: 0 auto 2rem;
+  line-height: 1.7;
+}
+
+@media (max-width: 768px) {
+  .about-hero h1 { font-size: 2.1rem; }
+  .about-service-row { grid-template-columns: 1fr; gap: 0.4rem; }
+  .about-service-head { display: none; }
 }

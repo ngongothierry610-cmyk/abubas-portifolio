@@ -9,7 +9,7 @@ export default function Servicespage () {
                 </div>
                 <div className="service-card">
                     <h3>Production Services</h3>
-                    <p>Producing and Directing, Camera Crews, Drone Visuals, Multi Cameras, Live Stream, Professional Interviews, Motion Graphics, 3D animation, Script Writing, StoryBoard</p>
+                    <p>Producing and Directing, Camera Crews, Multi Cameras, Live Stream, Professional Interviews, Motion Graphics, 3D animation, Script Writing, StoryBoard</p>
                 </div>
                 <div className="service-card">
                     <h3 className="service-card-title">Post-Production Services</h3>
