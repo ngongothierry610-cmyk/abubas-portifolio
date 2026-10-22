@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
-import { projects, getThumb } from "../projectsData";
-
-const slides = projects.filter((p) => p.featured);
+import { useProjects, getThumb } from "../useProjects"
 
 export default function Hero() {
+  const { projects } = useProjects();
+  const slides = projects.filter((p) => p.featured);
   const [current, setCurrent] = useState(0);
 
   // Change slide every 5 seconds (restarts when you click a dot)
@@ -13,7 +13,7 @@ export default function Hero() {
       setCurrent((prev) => (prev + 1) % slides.length);
     }, 5000);
     return () => clearTimeout(timer);
-  }, [current]);
+  }, [current, slides.length]);
 
   const scrollTo = (id) =>
   document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });

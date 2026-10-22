@@ -1,14 +1,15 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { projects, getVideoSrc, getThumb } from "../projectsData";
+import { useProjects, getVideoSrc, getThumb } from "../useProjects";
 import VideoModal from "./VideoModal";
 
 export default function Projects() {
   const [activeVideoId, setActiveVideoId] = useState(null);
-
+  const { projects, loading } = useProjects();
   return (
     <section className="projects-section" id="projects">
       <h2>Featured Projects</h2>
+      {loading && <p>Loading projects...</p>}
       <div className="projects-grid">
         {projects.filter((p) => p.featured).map((project) => (
           <div

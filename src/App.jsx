@@ -8,6 +8,7 @@ import Servicespage from "./components/Services";
 import Endpage from "./components/endpage";
 import LoginPage from "./pages/login";
 import AdminPage from "./pages/admin";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 export default function App() {
   const location = useLocation();
@@ -36,7 +37,14 @@ export default function App() {
         />
         <Route path="/portfolio" element={<PortfolioPage />} />
         <Route path="/login" element={<LoginPage />} />
-        <Route path="/admin" element={<AdminPage />} />
+        <Route
+          path="/admin"
+          element={
+            <ProtectedRoute>
+              <AdminPage />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
 
       {/* Endpage footer only renders if we are NOT on the login page */}
