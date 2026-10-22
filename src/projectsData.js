@@ -2,27 +2,32 @@
 export const projects = [
   {
     id: 1,
-    title: "feasured Music Vid",
+    title: "Featured Music Video",
     category: "Music Video",
-    image: "https://via.placeholder.com/600x400?text=Speed+does+Africa",
-    videoUrl: "https://www.youtube.com/watch?v=example1",
-    featured: true
+    youtubeId: "bgLmXRRGMJU",
+    featured: true,
   },
   {
     id: 2,
     title: "Kigali Summit",
     category: "Event Coverage",
-    image: "https://via.placeholder.com/600x400?text=Kigali+Summit",
-    videoUrl: "https://www.youtube.com/watch?v=example2",
-    featured: true
+    youtubeId: "bgLmXRRGMJU",
+    featured: true,
   },
   {
     id: 3,
     title: "Discover Rwanda",
     category: "Tourism / Commercial",
-    image: "https://via.placeholder.com/600x400?text=Discover+Rwanda",
-    videoUrl: "https://www.youtube.com/watch?v=example3",
-    featured: false
+    youtubeId: "bgLmXRRGMJU",
+    featured: false,
   },
-  
 ];
+
+// YouTube video -> player link. Your own file -> use videoSrc: "/videos/name.mp4"
+export const getVideoSrc = (p) =>
+  p.videoSrc ||
+  `https://www.youtube.com/embed/${p.youtubeId}?autoplay=1&rel=0`;
+
+// Thumbnail comes from YouTube automatically, or use your own p.image
+export const getThumb = (p) =>
+  p.image || `https://img.youtube.com/vi/${p.youtubeId}/hqdefault.jpg`;
