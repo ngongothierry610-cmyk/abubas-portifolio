@@ -139,6 +139,71 @@ button {
   background-color: rgba(255, 255, 255, 0.05);
   transform: translateY(-2px);
 }
+/* ===== HERO SLIDESHOW ===== */
+.hero-section {
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-slides,
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+}
+
+.hero-slide {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transform: scale(1.05);
+  transition: opacity 1.2s ease, transform 6s ease;
+}
+
+.hero-slide.active {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Dark layer so the text stays readable */
+.hero-overlay {
+  background: linear-gradient(
+    to bottom,
+    rgba(13, 13, 13, 0.65),
+    rgba(13, 13, 13, 0.85)
+  );
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+}
+
+.hero-dots {
+  position: absolute;
+  bottom: 1.75rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 0.6rem;
+  z-index: 2;
+}
+
+.hero-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.35);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.hero-dot.active {
+  background: #e50914;
+  width: 28px;
+  border-radius: 6px;
+}
 
 /* ==========================================================================
    4. PROJECTS / PORTFOLIO SECTION
@@ -216,6 +281,25 @@ button {
   font-size: 1.15rem;
   font-weight: 600;
   color: #ffffff;
+}
+.view-all-wrap {
+  text-align: center;
+  margin-top: 3rem;
+}
+
+.view-all-btn {
+  display: inline-block;
+  padding: 0.85rem 2rem;
+  background-color: #e50914;
+  color: #fff;
+  font-weight: 600;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+
+.view-all-btn:hover {
+  background-color: #b80710;
+  transform: translateY(-2px);
 }
 
 /* ==========================================================================

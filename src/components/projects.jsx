@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { projects, getVideoSrc, getThumb } from "../projectsData";
 import VideoModal from "./VideoModal";
 
@@ -23,8 +24,10 @@ export default function Projects() {
           </div>
         ))}
       </div>
-
-      {/* One modal only, outside the map and outside the cards */}
+      <div className="view-all-wrap">
+        <Link to="/portfolio" className="view-all-btn">View All Projects</Link>
+      </div>
+      
       <VideoModal
         videoUrl={activeVideoId}
         onClose={() => setActiveVideoId(null)}

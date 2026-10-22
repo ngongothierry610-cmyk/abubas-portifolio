@@ -1,7 +1,7 @@
 import { Routes, Route, useLocation } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
-import Projects from "./components/Projects";
+import Projects from "./components/projects";
 import PortfolioPage from "./pages/PortfolioPage";
 import AboutPage from "./components/About";
 import Servicespage from "./components/Services";
