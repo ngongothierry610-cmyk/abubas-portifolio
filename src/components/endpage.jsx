@@ -1,3 +1,4 @@
+import { FaEnvelope, FaPhone, FaWhatsapp, FaFacebook, FaInstagram, FaYoutube } from "react-icons/fa";
 export default function Endpage() {
   return (
     <section className="endpage-section" id="contact">
@@ -19,19 +20,20 @@ export default function Endpage() {
           </div>
         </div>
 
-        <div className="footer-col">
+       <div className="footer-col">
           <h3>Contacts</h3>
           <div className="col-links">
-            <a href="mailto:ngongothierry610@gmail.com">Email</a>
-            <a href="tel:+250789696300">Phone</a>
+            <a href="mailto:ngongothierry610@gmail.com"><FaEnvelope /> Email</a>
+            <a href="tel:+250789696300"><FaPhone /> Phone</a>
+            <a href="https://wa.me/250789696300" target="_blank" rel="noreferrer"><FaWhatsapp /> WhatsApp</a>
           </div>
         </div>
 
         <div className="footer-col">
           <h3>Social Media</h3>
           <div className="col-links">
-            <a href="https://www.facebook.com/thierry.ngongo.1" target="_blank" rel="noreferrer">Facebook</a>
-            <a href="https://www.instagram.com/thierry_ngongo/" target="_blank" rel="noreferrer">Instagram</a>
+            <a href="https://www.facebook.com/thierry.ngongo.1" target="_blank" rel="noreferrer"><FaFacebook /> Facebook</a>
+            <a href="https://www.instagram.com/thierry_ngongo/" target="_blank" rel="noreferrer"><FaInstagram /> Instagram</a>
           </div>
         </div>
       </div>

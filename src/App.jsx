@@ -3,13 +3,13 @@ import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import Projects from "./components/projects";
 import PortfolioPage from "./pages/PortfolioPage";
-import AboutPage from "./components/About";
 import Servicespage from "./components/Services";
 import Endpage from "./components/endpage";
 import LoginPage from "./pages/login";
 import AdminPage from "./pages/admin";
 import ProtectedRoute from "./components/ProtectedRoute";
 import AboutUsPage from "./pages/AboutUsPage";
+import ScrollToTop from "./components/ScrollToTop";
 
 export default function App() {
   const location = useLocation();
@@ -22,6 +22,7 @@ export default function App() {
   return (
     <div className="App">
       {/* Navbar only renders if we are NOT on the login page */}
+      <ScrollToTop />
       {!isStandalonePage && <Navbar />}
 
       <Routes>
@@ -30,7 +31,6 @@ export default function App() {
           element={
             <>
               <Hero />
-              <AboutPage />
               <Projects />
               <Servicespage />
             </>
