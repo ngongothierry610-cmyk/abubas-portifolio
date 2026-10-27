@@ -1211,3 +1211,115 @@ button {
   object-fit: cover;
   object-position: center;
 }
+
+/* --- Admin Thumbnail Choice Selector --- */
+.thumbnail-source-selector {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  background: #111;
+  padding: 12px;
+  border-radius: 6px;
+  border: 1px solid #222;
+  margin-bottom: 15px;
+}
+
+.thumbnail-source-selector label {
+  font-size: 0.9rem;
+  color: #ccc;
+}
+
+.radio-group {
+  display: flex;
+  gap: 20px;
+}
+
+.radio-group label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 0.85rem;
+}
+
+.radio-group input[type="radio"] {
+  accent-color: #e50914; /* Matches red branding */
+  cursor: pointer;
+}
+
+/* --- Inline Edit Form Layout --- */
+.admin-row-edit {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex: 1;
+  background: #161616;
+  padding: 15px;
+  border-radius: 6px;
+  border: 1px solid #333;
+}
+
+.admin-row-edit input[type="text"],
+.admin-row-edit select,
+.admin-row-edit input[type="file"] {
+  padding: 8px 10px;
+  background: #0b0b0b;
+  border: 1px solid #333;
+  color: #fff;
+  border-radius: 4px;
+  font-size: 0.9rem;
+}
+
+.admin-row-edit input[type="file"] {
+  padding: 6px;
+  font-size: 0.85rem;
+}
+
+/* Edit action buttons */
+.admin-row-edit .save-btn {
+  background: #28a745;
+  color: white;
+  border: none;
+  padding: 6px 14px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+  align-self: flex-start;
+}
+
+.admin-row-edit .save-btn:hover {
+  background: #218838;
+}
+
+.admin-row-edit .cancel-btn {
+  background: #6c757d;
+  color: white;
+  border: none;
+  padding: 6px 14px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+  align-self: flex-start;
+  margin-top: -30px;
+  margin-left: 70px;
+}
+
+.admin-row-edit .cancel-btn:hover {
+  background: #5a6268;
+}
+
+/* General Edit toggle button on rows */
+.edit-btn {
+  background: #007bff;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.85rem;
+}
+
+.edit-btn:hover {
+  background: #0056b3;
+}
