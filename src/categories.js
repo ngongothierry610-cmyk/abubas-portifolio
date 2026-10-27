@@ -3,5 +3,7 @@ export const CATEGORIES = [
   "Event Coverage",
   "Tourism / Commercial",
   "Documentary",
+  "reels",
+  "trailers",
   "Other",
 ];

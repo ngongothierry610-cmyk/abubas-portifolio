@@ -9,11 +9,14 @@ export default function PortfolioPage() {
   const [sortBy, setSortBy] = useState("newest");
   const [activeVideoId, setActiveVideoId] = useState(null);
 
-  // Tabs come from the categories that really exist in your data
-  const categories = useMemo(
-    () => [...new Set(projects.map((p) => p.category))],
-    [projects]
-  );
+  // Default categories list including Reels and Movies
+  const defaultCategories = ["Reels", "Movies"];
+
+  // Merge default categories with whatever categories exist in Supabase
+  const categories = useMemo(() => {
+    const databaseCategories = projects.map((p) => p.category);
+    return [...new Set([...defaultCategories, ...databaseCategories])].filter(Boolean);
+  }, [projects]);
 
   // If the selected category no longer exists, fall back to All
   const current =
@@ -38,7 +41,9 @@ export default function PortfolioPage() {
 
   return (
     <div className="portfolio-page-container">
-      <h1>Portfolio Page</h1>
+      <h1>
+        Portfolio <span style={{ color: "#e50914" }}>Page</span>
+      </h1>
       <p>Welcome to our portfolio page. Here you can find our latest projects and works.</p>
 
       <div className="portfolio-toolbar">
