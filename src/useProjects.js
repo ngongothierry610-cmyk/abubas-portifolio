@@ -24,6 +24,13 @@ export const getVideoSrc = (p) =>
   p.video_url ||
   `https://www.youtube.com/embed/${p.youtube_id}?autoplay=1&rel=0`;
 
-export const getThumb = (p) =>
-  p.image_url || `https://img.youtube.com/vi/${p.youtube_id}/hqdefault.jpg`;
-  
+export const getThumb = (p) => {
+  if (p.image_url) return p.image_url;
+
+  if (p.youtube_id && p.youtube_id.trim() !== "") {
+    // Start with 720p HD quality
+    return `https://i.ytimg.com/vi/${p.youtube_id.trim()}/hq720.jpg`;
+  }
+
+  return "/logo.png";
+};
