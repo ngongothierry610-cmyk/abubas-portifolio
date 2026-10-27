@@ -32,7 +32,7 @@ export default function Hero() {
       <div className="hero-overlay"></div>
 
       <div className="hero-content">
-        <h1>Welcome to Visiual <span style={{ color: "#e50914" }}>Arts</span> Portfolio</h1>
+        <h1>Welcome to Visial <span style={{ color: "#e50914" }}>Arts</span> Portfolio</h1>
         <p>Discover our latest projects and innovations.</p>
         <button onClick={() => scrollTo("projects")}>View Projects</button>
         <button onClick={() => scrollTo("contact")}>Contact Us</button>

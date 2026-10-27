@@ -8,6 +8,10 @@ import newextreme from "../assets/logos/newextreme.PNG";
 import newspecies from "../assets/logos/newspecies.PNG";
 import regis from "../assets/logos/regis.jpeg";
 import sage from "../assets/logos/sage.jpeg";
+import UrbanKonnect from "../assets/logos/UrbanKonnect.jpeg";
+import lion from "../assets/logos/lion.jpeg";
+import ikoro from "../assets/logos/ikoro.jpeg";
+import copin from "../assets/logos/copin.jpeg";
 
 export default function LogoSection() {
   const logos = [
@@ -20,6 +24,11 @@ export default function LogoSection() {
     { name: "New Species", img: newspecies },
     { name: "Regis Motors", img: regis },
     { name: "Sage Beauty Studio", img: sage },
+    { name: "Urban Konnect", img: UrbanKonnect },
+    { name: "Lion", img: lion },
+    { name: "Ikoro", img: ikoro },
+    { name: "Copin", img: copin }
+
   ];
 
   return (
