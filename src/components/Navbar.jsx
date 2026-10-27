@@ -1,22 +1,23 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
+import black from "../assets/us/black.png";
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
   const close = () => setOpen(false);
   const { pathname } = useLocation();
 
-// If already on the home page, scroll smoothly to the top
-const goHome = () => {
-  close();
-  if (pathname === "/") window.scrollTo({ top: 0, behavior: "smooth" });
-};
+  // If already on the home page, scroll smoothly to the top
+  const goHome = () => {
+    close();
+    if (pathname === "/") window.scrollTo({ top: 0, behavior: "smooth" });
+  };
 
   return (
     <nav className="navbar">
       <div className="logo">
-        <Link to="/" className="logo" onClick={goHome}>
-          <h2>Visual<span> Art</span></h2>
+        <Link to="/" className="logo-link" onClick={goHome}>
+          <img src={black} alt="Visual Art Logo" className="brand-logo" />
         </Link>
       </div>
 
