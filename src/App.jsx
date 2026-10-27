@@ -2,6 +2,7 @@ import { Routes, Route, useLocation } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import Projects from "./components/projects";
+import LogoSection from "./components/LogoSection";
 import PortfolioPage from "./pages/PortfolioPage";
 import Servicespage from "./components/Services";
 import Endpage from "./components/endpage";
@@ -32,7 +33,9 @@ export default function App() {
             <>
               <Hero />
               <Projects />
+              <LogoSection />
               <Servicespage />
+
             </>
           } 
         />
