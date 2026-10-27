@@ -37,6 +37,11 @@ export default function Endpage() {
           </div>
         </div>
       </div>
+
+      {/* Copyright Bottom Bar */}
+      <div className="endpage-bottom-bar" style={{ textAlign: "center", marginTop: "40px", paddingTop: "20px", borderTop: "1px solid #222", color: "#888", fontSize: "0.85rem" }}>
+        <p>© 2026 Visual <span style={{ color: "#e50914" }}>Arts</span> all rights reserved.</p>
+      </div>
     </section>
   );
 }

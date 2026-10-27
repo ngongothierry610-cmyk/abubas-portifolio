@@ -1,44 +1,32 @@
 // src/components/LogoSection.jsx
-import africaincolors from "../assets/logos/africaincolors.png";
-import gadgetstore from "../assets/logos/gadgetstore.jpeg";
-import glads from "../assets/logos/glads.jpeg";
-import hc from "../assets/logos/hc.PNG";
-import lakeresort from "../assets/logos/lakeresort.png";
-import newextreme from "../assets/logos/newextreme.PNG";
-import newspecies from "../assets/logos/newspecies.PNG";
-import regis from "../assets/logos/regis.jpeg";
-import sage from "../assets/logos/sage.jpeg";
-import UrbanKonnect from "../assets/logos/UrbanKonnect.jpeg";
-import lion from "../assets/logos/lion.jpeg";
-import ikoro from "../assets/logos/ikoro.jpeg";
-import copin from "../assets/logos/copin.jpeg";
+import { useState, useEffect } from "react";
+import { supabase } from "../supabaseClient";
 
 export default function LogoSection() {
-  const logos = [
-    { name: "Africa in Colors", img: africaincolors },
-    { name: "Gadget Store", img: gadgetstore },
-    { name: "Glads Apartments", img: glads },
-    { name: "HC", img: hc },
-    { name: "Bugesera Lake Resort", img: lakeresort },
-    { name: "New Extreme", img: newextreme },
-    { name: "New Species", img: newspecies },
-    { name: "Regis Motors", img: regis },
-    { name: "Sage Beauty Studio", img: sage },
-    { name: "Urban Konnect", img: UrbanKonnect },
-    { name: "Lion", img: lion },
-    { name: "Ikoro", img: ikoro },
-    { name: "Copin", img: copin }
+  const [logos, setLogos] = useState([]);
 
-  ];
+  useEffect(() => {
+    supabase
+      .from("client_logos")
+      .select("*")
+      .order("order_index", { ascending: true }) // Sorts by your custom order
+      .then(({ data, error }) => {
+        if (!error && data) {
+          setLogos(data);
+        }
+      });
+  }, []);
+
+  if (logos.length === 0) return null;
 
   return (
     <section className="logo-section">
       <div className="logo-container">
         <h2 className="logo-section-title">FEATURED BRANDS & PARTNERS</h2>
         <div className="logos-grid">
-          {logos.map((logo, index) => (
-            <div className="logo-card" key={index}>
-              <img src={logo.img} alt={logo.name} />
+          {logos.map((logo) => (
+            <div className="logo-card" key={logo.id}>
+              <img src={logo.logo_url} alt={logo.name} title={logo.name} />
             </div>
           ))}
         </div>

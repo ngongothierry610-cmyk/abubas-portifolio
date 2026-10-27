@@ -9,7 +9,7 @@ export function useProjects() {
     supabase
       .from("projects")
       .select("*")
-      .order("created_at", { ascending: false })
+      .order("order_index", { ascending: true })
       .then(({ data, error }) => {
         if (error) console.error("Supabase error:", error);
         else setProjects(data);
