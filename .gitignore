@@ -24,3 +24,10 @@ dist-ssr
 *.sw?
 
 # .env (we'll fill this in together next)
+# Local environment and SSH secrets
+*.pem
+*.pub
+id_ed25519
+id_rsa
+.env
+.env.local
