@@ -32,8 +32,8 @@ export default function Endpage() {
         <div className="footer-col">
           <h3>Social Media</h3>
           <div className="col-links">
-            <a href="https://www.facebook.com/thierry.ngongo.1" target="_blank" rel="noreferrer"><FaFacebook /> Facebook</a>
-            <a href="https://www.instagram.com/thierry_ngongo/" target="_blank" rel="noreferrer"><FaInstagram /> Instagram</a>
+            <a href="https://www.facebook.com/" target="_blank" rel="noreferrer"><FaFacebook /> Facebook</a>
+            <a href="https://www.instagram.com/" target="_blank" rel="noreferrer"><FaInstagram /> Instagram</a>
           </div>
         </div>
       </div>

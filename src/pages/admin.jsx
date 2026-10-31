@@ -15,31 +15,41 @@ function extractYoutubeId(input) {
 
 export default function AdminPage() {
   const navigate = useNavigate();
-  const [activeTab, setActiveTab] = useState("projects"); // "projects" | "logos"
+  const [activeTab, setActiveTab] = useState("projects"); // "projects" | "logos" | "gallery"
+  
+  // Data lists
   const [projects, setProjects] = useState([]);
   const [clientLogos, setClientLogos] = useState([]);
+  const [galleryImages, setGalleryImages] = useState([]);
   const [refresh, setRefresh] = useState(0);
 
-  // Search & Filter
+  // Search & Filter (Projects)
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
 
-  // Project Form states
+  // Global status message
+  const [message, setMessage] = useState("");
+
+  // Form states: Projects
   const [title, setTitle] = useState("");
   const [category, setCategory] = useState(CATEGORIES[0]);
   const [link, setLink] = useState("");
   const [thumbChoice, setThumbChoice] = useState("youtube");
   const [imageFile, setImageFile] = useState(null);
   const [featured, setFeatured] = useState(false);
-  const [message, setMessage] = useState("");
-  const [saving, setSaving] = useState(false);
+  const [savingProject, setSavingProject] = useState(false);
 
-  // Client Logo Form states
+  // Form states: Client Logos
   const [clientName, setClientName] = useState("");
   const [clientFile, setClientFile] = useState(null);
   const [savingLogo, setSavingLogo] = useState(false);
 
-  // Edit states
+  // Form states: Gallery
+  const [galleryTitle, setGalleryTitle] = useState("");
+  const [galleryFile, setGalleryFile] = useState(null);
+  const [savingGallery, setSavingGallery] = useState(false);
+
+  // Edit states (Projects)
   const [editingId, setEditingId] = useState(null);
   const [editTitle, setEditTitle] = useState("");
   const [editCategory, setEditCategory] = useState(CATEGORIES[0]);
@@ -47,11 +57,11 @@ export default function AdminPage() {
   const [editThumbChoice, setEditThumbChoice] = useState("youtube");
   const [editImageFile, setEditImageFile] = useState(null);
 
-useEffect(() => {
+  useEffect(() => {
     supabase
       .from("projects")
       .select("*")
-      .order("order_index", { ascending: true })
+      .order("created_at", { ascending: false })
       .then(({ data }) => {
         if (data) setProjects(data);
       });
@@ -59,9 +69,17 @@ useEffect(() => {
     supabase
       .from("client_logos")
       .select("*")
-      .order("order_index", { ascending: true })
+      .order("created_at", { ascending: false })
       .then(({ data }) => {
         if (data) setClientLogos(data);
+      });
+
+    supabase
+      .from("gallery")
+      .select("*")
+      .order("created_at", { ascending: false })
+      .then(({ data }) => {
+        if (data) setGalleryImages(data);
       });
   }, [refresh]);
 
@@ -90,7 +108,8 @@ useEffect(() => {
     return data.publicUrl;
   };
 
-const handleAddProject = async (e) => {
+  /* --- HANDLERS: PROJECTS --- */
+  const handleAddProject = async (e) => {
     e.preventDefault();
     setMessage("");
 
@@ -105,21 +124,19 @@ const handleAddProject = async (e) => {
       return;
     }
 
-    setSaving(true);
+    setSavingProject(true);
     try {
       let imageUrl = null;
       if (thumbChoice === "custom" && imageFile) {
         imageUrl = await uploadFileToSupabase(imageFile, "project-images");
       }
 
-      // Place new project at the very top (order_index = 0) and shift others down
       const { error } = await supabase.from("projects").insert({
         title: title.trim(),
         category,
         youtube_id: youtubeId,
         image_url: imageUrl,
         featured,
-        order_index: 0, 
       });
 
       if (error) throw error;
@@ -129,62 +146,13 @@ const handleAddProject = async (e) => {
       setImageFile(null);
       setThumbChoice("youtube");
       setFeatured(false);
-      setMessage("Project added successfully!");
+      setMessage("Project published successfully!");
       reload();
     } catch (err) {
       setMessage("Error: " + err.message);
     } finally {
-      setSaving(false);
+      setSavingProject(false);
     }
-  };
-  const handleAddLogo = async (e) => {
-    e.preventDefault();
-    if (!clientName || !clientFile) {
-      setMessage("Provide client name and logo file.");
-      return;
-    }
-
-    setSavingLogo(true);
-    try {
-      const logoUrl = await uploadFileToSupabase(clientFile, "client-logos");
-      const { error } = await supabase.from("client_logos").insert({
-        name: clientName.trim(),
-        logo_url: logoUrl,
-        order_index: 0,
-      });
-
-      if (error) throw error;
-
-      setClientName("");
-      setClientFile(null);
-      setMessage("Client logo added successfully!");
-      reload();
-    } catch (err) {
-      setMessage("Error: " + err.message);
-    } finally {
-      setSavingLogo(false);
-    }
-  };
-
-  // Reordering function (moves item up or down in sequence)
- const moveItem = async (list, index, direction, table) => {
-    const targetIndex = direction === "up" ? index - 1 : index + 1;
-    if (targetIndex < 0 || targetIndex >= list.length) return;
-
-    // Create a shallow copy of the list and swap elements
-    const updatedList = [...list];
-    const temp = updatedList[index];
-    updatedList[index] = updatedList[targetIndex];
-    updatedList[targetIndex] = temp;
-
-    // Reassign sequential order_index (0, 1, 2, 3...) to every item based on new position
-    const updates = updatedList.map((item, newIdx) => 
-      supabase.from(table).update({ order_index: newIdx }).eq("id", item.id)
-    );
-
-    // Execute all updates together
-    await Promise.all(updates);
-    reload();
   };
 
   const startEdit = (p) => {
@@ -196,7 +164,7 @@ const handleAddProject = async (e) => {
     setEditImageFile(null);
   };
 
-  const handleUpdate = async (project) => {
+  const handleUpdateProject = async (project) => {
     setMessage("");
     const youtubeId = extractYoutubeId(editLink);
     if (!youtubeId) {
@@ -204,7 +172,7 @@ const handleAddProject = async (e) => {
       return;
     }
 
-    setSaving(true);
+    setSavingProject(true);
     try {
       let imageUrl = project.image_url;
       if (editThumbChoice === "custom") {
@@ -233,7 +201,7 @@ const handleAddProject = async (e) => {
     } catch (err) {
       setMessage("Update error: " + err.message);
     } finally {
-      setSaving(false);
+      setSavingProject(false);
     }
   };
 
@@ -243,14 +211,78 @@ const handleAddProject = async (e) => {
   };
 
   const handleDeleteProject = async (p) => {
-    if (!window.confirm(`Delete "${p.title}"?`)) return;
+    if (!window.confirm(`Delete project "${p.title}"?`)) return;
     await supabase.from("projects").delete().eq("id", p.id);
     reload();
+  };
+
+  /* --- HANDLERS: LOGOS --- */
+  const handleAddLogo = async (e) => {
+    e.preventDefault();
+    if (!clientName || !clientFile) {
+      setMessage("Provide client name and logo file.");
+      return;
+    }
+
+    setSavingLogo(true);
+    try {
+      const logoUrl = await uploadFileToSupabase(clientFile, "client-logos");
+      const { error } = await supabase.from("client_logos").insert({
+        name: clientName.trim(),
+        logo_url: logoUrl,
+      });
+
+      if (error) throw error;
+
+      setClientName("");
+      setClientFile(null);
+      setMessage("Client logo added successfully!");
+      reload();
+    } catch (err) {
+      setMessage("Error: " + err.message);
+    } finally {
+      setSavingLogo(false);
+    }
   };
 
   const handleDeleteLogo = async (id, name) => {
     if (!window.confirm(`Delete client logo "${name}"?`)) return;
     await supabase.from("client_logos").delete().eq("id", id);
+    reload();
+  };
+
+  /* --- HANDLERS: GALLERY --- */
+  const handleAddGalleryImage = async (e) => {
+    e.preventDefault();
+    if (!galleryTitle || !galleryFile) {
+      setMessage("Provide photo title and image file.");
+      return;
+    }
+
+    setSavingGallery(true);
+    try {
+      const imageUrl = await uploadFileToSupabase(galleryFile, "gallery");
+      const { error } = await supabase.from("gallery").insert({
+        title: galleryTitle.trim(),
+        image_url: imageUrl,
+      });
+
+      if (error) throw error;
+
+      setGalleryTitle("");
+      setGalleryFile(null);
+      setMessage("Gallery photo added successfully!");
+      reload();
+    } catch (err) {
+      setMessage("Error: " + err.message);
+    } finally {
+      setSavingGallery(false);
+    }
+  };
+
+  const handleDeleteGalleryImage = async (id, title) => {
+    if (!window.confirm(`Delete gallery photo "${title}"?`)) return;
+    await supabase.from("gallery").delete().eq("id", id);
     reload();
   };
 
@@ -270,7 +302,7 @@ const handleAddProject = async (e) => {
 
       {message && <div className="admin-global-message">{message}</div>}
 
-      {/* Navigation Tabs */}
+      {/* Structured Navigation Tabs */}
       <div className="admin-tabs">
         <button
           className={`tab-btn ${activeTab === "projects" ? "active" : ""}`}
@@ -284,13 +316,18 @@ const handleAddProject = async (e) => {
         >
           Manage Client Logos ({clientLogos.length})
         </button>
+        <button
+          className={`tab-btn ${activeTab === "gallery" ? "active" : ""}`}
+          onClick={() => setActiveTab("gallery")}
+        >
+          Manage Gallery ({galleryImages.length})
+        </button>
       </div>
 
       {/* TAB 1: PROJECTS */}
       {activeTab === "projects" && (
         <div className="admin-tab-content">
           <div className="admin-dashboard-grid">
-            {/* Left: Add Project Form */}
             <div className="admin-card">
               <h3>Add New Project</h3>
               <form onSubmit={handleAddProject} className="admin-form-compact">
@@ -354,13 +391,12 @@ const handleAddProject = async (e) => {
                   Feature in Hero Slideshow
                 </label>
 
-                <button type="submit" className="btn-primary" disabled={saving}>
-                  {saving ? "Saving..." : "Publish Project"}
+                <button type="submit" className="btn-primary" disabled={savingProject}>
+                  {savingProject ? "Publishing..." : "Publish Project"}
                 </button>
               </form>
             </div>
 
-            {/* Right: Scalable Project List with Search & Reordering */}
             <div className="admin-card">
               <div className="list-header-row">
                 <h3>Projects Directory</h3>
@@ -386,13 +422,8 @@ const handleAddProject = async (e) => {
               </div>
 
               <div className="admin-scrollable-list">
-                {filteredProjects.map((p, index) => (
+                {filteredProjects.map((p) => (
                   <div key={p.id} className="admin-project-card-row">
-                    <div className="reorder-arrows">
-                      <button onClick={() => moveItem(projects, index, "up", "projects")} title="Move Up">▲</button>
-                      <button onClick={() => moveItem(projects, index, "down", "projects")} title="Move Down">▼</button>
-                    </div>
-
                     <img src={getThumb(p)} alt={p.title} className="row-thumb" />
 
                     {editingId === p.id ? (
@@ -441,7 +472,7 @@ const handleAddProject = async (e) => {
                           />
                         )}
                         <div className="edit-action-btns">
-                          <button className="btn-save-sm" onClick={() => handleUpdate(p)}>Save</button>
+                          <button className="btn-save-sm" onClick={() => handleUpdateProject(p)}>Save</button>
                           <button className="btn-cancel-sm" onClick={() => setEditingId(null)}>Cancel</button>
                         </div>
                       </div>
@@ -477,7 +508,6 @@ const handleAddProject = async (e) => {
       {activeTab === "logos" && (
         <div className="admin-tab-content">
           <div className="admin-dashboard-grid">
-            {/* Left: Add Logo Form */}
             <div className="admin-card">
               <h3>Add Client Logo</h3>
               <form onSubmit={handleAddLogo} className="admin-form-compact">
@@ -500,23 +530,63 @@ const handleAddProject = async (e) => {
               </form>
             </div>
 
-            {/* Right: Logos List with Reordering */}
             <div className="admin-card">
               <h3>Client Logos Directory ({clientLogos.length})</h3>
               <div className="admin-scrollable-list">
-                {clientLogos.map((logo, index) => (
+                {clientLogos.map((logo) => (
                   <div key={logo.id} className="admin-project-card-row">
-                    <div className="reorder-arrows">
-                      <button onClick={() => moveItem(clientLogos, index, "up", "client_logos")} title="Move Up">▲</button>
-                      <button onClick={() => moveItem(clientLogos, index, "down", "client_logos")} title="Move Down">▼</button>
-                    </div>
-
                     <img src={logo.logo_url} alt={logo.name} className="row-thumb" style={{ background: "#fff", objectFit: "contain" }} />
                     <div className="row-info">
                       <h4>{logo.name}</h4>
                     </div>
                     <div className="row-actions">
                       <button className="btn-delete" onClick={() => handleDeleteLogo(logo.id, logo.name)}>Delete</button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* TAB 3: GALLERY PHOTOS */}
+      {activeTab === "gallery" && (
+        <div className="admin-tab-content">
+          <div className="admin-dashboard-grid">
+            <div className="admin-card">
+              <h3>Add Photo to Gallery</h3>
+              <form onSubmit={handleAddGalleryImage} className="admin-form-compact">
+                <input
+                  type="text"
+                  placeholder="Photo Title / Description"
+                  value={galleryTitle}
+                  onChange={(e) => setGalleryTitle(e.target.value)}
+                  required
+                />
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={(e) => setGalleryFile(e.target.files[0])}
+                  required
+                />
+                <button type="submit" className="btn-primary" disabled={savingGallery}>
+                  {savingGallery ? "Uploading..." : "Upload Photo"}
+                </button>
+              </form>
+            </div>
+
+            <div className="admin-card">
+              <h3>Gallery Directory ({galleryImages.length})</h3>
+              <div className="admin-scrollable-list">
+                {galleryImages.map((img) => (
+                  <div key={img.id} className="admin-project-card-row">
+                    <img src={img.image_url} alt={img.title} className="row-thumb" style={{ objectFit: "cover" }} />
+                    <div className="row-info">
+                      <h4>{img.title}</h4>
+                    </div>
+                    <div className="row-actions">
+                      <button className="btn-delete" onClick={() => handleDeleteGalleryImage(img.id, img.title)}>Delete</button>
                     </div>
                   </div>
                 ))}

@@ -37,6 +37,7 @@ export default function Navbar() {
         <Link to="/about" onClick={close}>About</Link>
         <Link to="/portfolio" onClick={close}>Portfolio</Link>
         <a href="#contact" onClick={close}>Contact</a>
+        <Link to="/gallery" onClick={close}>Gallery</Link>
       </div>
     </nav>
   );

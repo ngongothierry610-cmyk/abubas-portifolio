@@ -5,5 +5,7 @@ export const CATEGORIES = [
   "Documentary",
   "reels",
   "trailers",
+  "behind the scenes",
   "Other",
+
 ];

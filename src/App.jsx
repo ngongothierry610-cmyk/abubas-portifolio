@@ -11,6 +11,7 @@ import AdminPage from "./pages/admin";
 import ProtectedRoute from "./components/ProtectedRoute";
 import AboutUsPage from "./pages/AboutUsPage";
 import ScrollToTop from "./components/ScrollToTop";
+import GalleryPage from "./pages/gallery";
 
 export default function App() {
   const location = useLocation();
@@ -41,6 +42,7 @@ export default function App() {
         />
         <Route path="/portfolio" element={<PortfolioPage />} />
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/gallery" element={<GalleryPage />} />
         <Route
           path="/admin"
           element={
